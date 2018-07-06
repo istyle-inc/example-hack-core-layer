@@ -4,6 +4,8 @@ Independent core layer pattern with HHVM/Hack
 
 [独立したコアレイヤパターン](https://blog.shin1x1.com/entry/independent-core-layer-pattern)
 
+built on [HHVM/Hack WebFramework Nazg](https://github.com/ytake/nazg-skeleton)
+
 ## install
 
 ```bash
@@ -27,4 +29,4 @@ $ curl -H 'Content-Type: application/json' http://192.168.10.10/accounts/A00001 
   "account_number": "A00001",
   "balance": 3000
 }
-``
+```
