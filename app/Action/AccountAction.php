@@ -33,7 +33,5 @@ final class AccountAction implements MiddlewareInterface {
         )
       )
     );
-   
- //   return $this->responder->response();
   }
 }

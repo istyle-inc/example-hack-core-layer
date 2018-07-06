@@ -19,5 +19,4 @@ final class Balance extends AbstractValue<int> {
   protected function validate(int $t): void {
     invariant($t < 0, 'balance_should_not_be_less_than_zero');
   }
-
 }

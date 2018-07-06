@@ -17,17 +17,22 @@
 namespace App\Module;
 
 use App\Action\AccountAction;
+use App\Assert\AssertGetAccount;
 use App\Responder\AccountResponder;
 use Ytake\HHContainer\Scope;
 use Ytake\HHContainer\ServiceModule;
 use Ytake\HHContainer\FactoryContainer;
+use Example\Account\Usecase\GetAccount\GetAccount;
 
 final class ActionServiceModule extends ServiceModule {
   <<__Override>>
   public function provide(FactoryContainer $container): void {
     $container->set(
       AccountAction::class,
-      $container ==> new AccountAction(new AccountResponder()),
+      $container ==> new AccountAction(
+        new AccountResponder(), 
+        AssertGetAccount::assert($container->get(GetAccount::class))
+      ),
       Scope::PROTOTYPE,
     );
   }

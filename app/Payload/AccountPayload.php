@@ -18,7 +18,7 @@ final class AccountPayload {
   public function getOutput(): AccountMap {
     return $this->values->addAll([
       Pair {'account_number', $this->account->accountNumber()->getValue()},
-      Pair {'balance', $this->account->balance()->getValue()},      
+      Pair {'name', $this->account->name()},      
     ])->toImmMap();
   }
 
