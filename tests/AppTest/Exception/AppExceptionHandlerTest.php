@@ -2,6 +2,7 @@
 
 namespace AppTest\Exception;
 
+use HH\InvariantException;
 use PHPUnit\Framework\TestCase;
 use App\Exception\AppExceptionHandler;
 use Ytake\HHContainer\ServiceModule;
@@ -13,6 +14,7 @@ use Nazg\Foundation\Exception\ExceptionRegister;
 use Nazg\Foundation\Exception\ExceptionServiceModule;
 use function Facebook\FBExpect\expect;
 use Psr\Http\Message\ResponseInterface;
+use Example\Account\Domain\Exception\NotFoundException;
 
 class AppExceptionHandlerTest extends TestCase {
 
@@ -28,10 +30,36 @@ class AppExceptionHandlerTest extends TestCase {
       $d = json_decode($r->getBody()->getContents(), true);
       expect($d['message'])->toBeSame('Exception for testing');
       expect($r->getStatusCode())->toBeSame(500);
-      $this->assertArrayHasKey('exception', $d);
-      $this->assertArrayHasKey('file', $d);
-      $this->assertArrayHasKey('line', $d);
-      $this->assertArrayHasKey('trace', $d);
+    }
+  }
+
+  public function testShouldThrowNotFoundException(): void {
+    $emitter = new OverrideEmitter();
+    $e = new AppExceptionHandler($emitter);
+    $register = new ExceptionRegister($e);
+    $register->register();
+    $e->handleException(new NotFoundException('Exception for testing'));
+    $r = $emitter->getResponse();
+    if($r instanceof ResponseInterface) {
+      expect($r)->toBeInstanceOf(ResponseInterface::class);
+      $d = json_decode($r->getBody()->getContents(), true);
+      expect($d['message'])->toBeSame('Exception for testing');
+      expect($r->getStatusCode())->toBeSame(404);
+    }
+  }
+
+  public function testShouldThrowInvaridException(): void {
+    $emitter = new OverrideEmitter();
+    $e = new AppExceptionHandler($emitter);
+    $register = new ExceptionRegister($e);
+    $register->register();
+    $e->handleException(new InvariantException('Exception for testing'));
+    $r = $emitter->getResponse();
+    if($r instanceof ResponseInterface) {
+      expect($r)->toBeInstanceOf(ResponseInterface::class);
+      $d = json_decode($r->getBody()->getContents(), true);
+      expect($d['message'])->toBeSame('Exception for testing');
+      expect($r->getStatusCode())->toBeSame(400);
     }
   }
 }

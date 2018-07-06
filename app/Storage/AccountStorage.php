@@ -24,7 +24,7 @@ final class AccountStorage {
     },
   };
 
-  public function retrieveAccount(string $accountNumber): Account {
+  public function retrieveAccount(string $accountNumber): ?Account {
     $v = $this->store->filter(
       $row ==> $row->get('account_number') == $accountNumber
     )->get(0);
@@ -37,6 +37,6 @@ final class AccountStorage {
         )
       );
     }
-    throw new \Exception();
+    return null;
   }
 }

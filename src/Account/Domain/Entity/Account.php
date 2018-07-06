@@ -12,7 +12,7 @@ final class Account {
 
   public function __construct(
     private AccountNumber $accountNumber,
-    private Email $email, 
+    private Email $email,
     private string $name,
   ) { }
 

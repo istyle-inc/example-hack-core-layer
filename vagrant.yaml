@@ -9,8 +9,8 @@ keys:
 folders:
     -
         map: ./
-        to: /home/vagrant/your_dir_name
+        to: /home/vagrant/hack-core-layer
 sites:
     -
         map: nazg.vagrant
-        to: /home/vagrant/your_dir_name/public
+        to: /home/vagrant/hack-core-layer/public

@@ -1,5 +1,4 @@
-<?hh
-
+<?hh // strict
 /**
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -14,13 +13,24 @@
  *
  * Copyright (c) 2017-2018 Yuuki Takezawa
  */
-return [
-  \Nazg\Foundation\Service::MODULES => ImmVector {
-    \App\Module\ActionServiceModule::class,
-    \App\Module\ApplicationServiceModule::class,
-    \App\Module\ExceptionServiceModule::class,
-    // \App\Module\MiddlewareServiceModule::class,
-    // \App\Module\LoggerServiceModule::class,
-    \App\Module\CacheServiceModule::class,
-  },
-];
+namespace App\Action;
+
+use App\Responder\IndexResponder;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
+
+final class IndexAction implements MiddlewareInterface {
+
+  public function __construct(
+    private IndexResponder $responder
+  ) {}
+
+  public function process(
+    ServerRequestInterface $request,
+    RequestHandlerInterface $handler,
+  ): ResponseInterface {
+    return $this->responder->emit();
+  }
+}

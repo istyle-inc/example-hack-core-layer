@@ -1,6 +1,6 @@
 <?hh // strict
 
-namespace Example\Account\Domain; 
+namespace Example\Account\Domain;
 
 enum TransactionType : string {
   Deposit = 'DEPOSIT';

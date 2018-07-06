@@ -14,13 +14,17 @@
  *
  * Copyright (c) 2017-2018 Yuuki Takezawa
  */
-return [
-  \Nazg\Foundation\Service::MODULES => ImmVector {
-    \App\Module\ActionServiceModule::class,
-    \App\Module\ApplicationServiceModule::class,
-    \App\Module\ExceptionServiceModule::class,
-    // \App\Module\MiddlewareServiceModule::class,
-    // \App\Module\LoggerServiceModule::class,
-    \App\Module\CacheServiceModule::class,
-  },
-];
+
+namespace App\Responder;
+
+use Psr\Http\Message\ResponseInterface;
+use Zend\Diactoros\Response\JsonResponse;
+
+final class IndexResponder {
+
+  public function emit(): ResponseInterface {
+    return new JsonResponse([
+      'message' => 'Nazg / Begin developing HHVM/Hack Http Application.'
+    ]);
+  }
+}

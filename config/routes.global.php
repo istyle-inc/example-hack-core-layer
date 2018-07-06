@@ -46,8 +46,15 @@ return [
      * ) 
      */
     HttpMethod::GET => ImmMap {
+      '/accounts/{accountNumber}' => shape(
+        'middleware' => ImmVector {
+          App\Action\AccountAction::class
+        }
+      ),
       '/' => shape(
-        'middleware' => ImmVector {App\Action\IndexAction::class}
+        'middleware' => ImmVector {
+          App\Action\IndexAction::class
+        }
       ),
     },
   },

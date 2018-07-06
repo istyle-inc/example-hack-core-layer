@@ -6,6 +6,7 @@ use function preg_match;
 
 final class AccountNumber extends AbstractValue<string> {
 
+  <<__Override>>
   protected function validate(string $t): void {
     invariant(
       \preg_match('/\A[A-Z][0-9]{4,10}\z/', $t) > 0,

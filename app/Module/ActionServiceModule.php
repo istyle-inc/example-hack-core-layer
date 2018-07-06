@@ -16,12 +16,10 @@
  */
 namespace App\Module;
 
-use App\Action\AccountAction;
+use App\Action\{IndexAction, AccountAction};
 use App\Assert\AssertGetAccount;
-use App\Responder\AccountResponder;
-use Ytake\HHContainer\Scope;
-use Ytake\HHContainer\ServiceModule;
-use Ytake\HHContainer\FactoryContainer;
+use App\Responder\{IndexResponder, AccountResponder};
+use Ytake\HHContainer\{Scope, ServiceModule, FactoryContainer};
 use Example\Account\Usecase\GetAccount\GetAccount;
 
 final class ActionServiceModule extends ServiceModule {
@@ -33,6 +31,11 @@ final class ActionServiceModule extends ServiceModule {
         new AccountResponder(), 
         AssertGetAccount::assert($container->get(GetAccount::class))
       ),
+      Scope::PROTOTYPE,
+    );
+     $container->set(
+      IndexAction::class,
+      $container ==> new IndexAction(new IndexResponder()),
       Scope::PROTOTYPE,
     );
   }
