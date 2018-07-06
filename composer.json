@@ -1,5 +1,5 @@
 {
-  "name": "nazg/skeleton",
+  "name": "istyle-inc/example-hack-core-layer",
   "description": "PSR-7, PSR-11, PSR-15 compliant Action-Domain-Responder (ADR) Micro framework for HHVM/Hack",
   "type": "project",
   "keywords": [
